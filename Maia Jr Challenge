@@ -1,0 +1,65 @@
+//novo codigo Maia Jr
+// C++ code
+//
+int Ultrasonic = 0;
+int UltrasonicD = 0;
+int UltrasonicE = 0;
+long readUltrasonicDistance(int triggerPin, int echoPin)
+{
+  pinMode(triggerPin, OUTPUT); 
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+  pinMode(echoPin, INPUT);
+  return pulseIn(echoPin, HIGH);
+}
+void setup()
+{
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  Serial.begin(9600);
+}
+void loop()
+{
+  Ultrasonic = 0.01723 * readUltrasonicDistance(13, 2);
+  UltrasonicD = 0.01723 * readUltrasonicDistance(10, 11);
+  UltrasonicE = 0.01723 * readUltrasonicDistance(12, 9);
+  if (Ultrasonic <= 10) {
+    // M. DIREITA
+    analogWrite(3, 100);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    // M. ESQUERDA
+    analogWrite(6, 100);
+    digitalWrite(7, LOW);
+    digitalWrite(8, LOW);
+    delay(700); // Espera 700 millisegundos
+    Serial.println(Ultrasonic);
+  }
+  if (UltrasonicD <= 15){
+    // M. DIREITA
+    analogWrite(3, 100);
+    digitalWrite(4, HIGH);
+    digitalWrite(5, LOW);
+    // M. ESQUERDA
+analogWriete (6, 100);
+    digitalWrite(7, LOW);
+    digitalWrite(8, HIGH);
+  }
+  if (UltrasonicE <= 15){
+    // M. DIREITO
+    analogWrite(3, 100);
+    digitalWrite(4, HIGH);
+    digitalWrite(5, LOW);
+    // M. ESQUERDA 
+    analogWrite(6, 100);
+    digitalWrite(7, LOW);
+    digitalWrite(8, HIGH);
+  }
+ }
